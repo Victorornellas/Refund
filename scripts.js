@@ -95,14 +95,17 @@ function expenseAdd(newExpense){
         removeIcon.setAttribute("alt", "remover")
 
 
-     //Adiciona as informações no item
+        //Adiciona as informações no item
 
         expenseItem.append(expenseIcon, expenseInfo, expenseAmount, removeIcon)
 
-     // Adiciona o item na lista
+        // Adiciona o item na lista
         expenseList.append(expenseItem)
 
-     // Atualiza os totais
+        // Limpa o formulario para adicionar 1 novo item
+            formClear()
+
+       // Atualiza os totais
      updateTotals()
 
     } catch (error) {
@@ -164,7 +167,22 @@ function updateTotals() {
 expenseList.addEventListener("click", function (event) {
     // Verifica se o elemento clicado é o icone de remover
     if(event.target.classList.contains("remove-icon")) {
-
-        console.log(event)
+        // Otem a li pai do elemento pai clicado
+        const item = event.target.closest(".expense")
+        //Remove item da lista
+        item.remove()
     }
+
+    // Atualiza os totais
+    updateTotals()
 })
+
+function formClear(){
+    // Limpa os inputs
+    expense.value = ""
+    category.value = ""
+    amount.value = ""
+
+    // Coloca o foco no input dos amount
+    expense.focus()
+}
